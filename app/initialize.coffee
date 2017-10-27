@@ -1,2 +1,5 @@
 application = require 'application'
-application.initialize()
+$ = require('jquery')
+$(document).ready ->
+  application.initialize()
+  application.distributeWater()
