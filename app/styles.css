@@ -7,3 +7,12 @@
 
 #controls {
 }
+
+#map svg {
+  width: 500px;
+  height: 650px;
+}
+
+#annualFlowSlider .slider-selection {
+  background: #BABABA;
+}
