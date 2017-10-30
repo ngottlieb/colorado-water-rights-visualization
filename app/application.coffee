@@ -1,11 +1,9 @@
-$ = require('jquery')
-
 Application =
   initialize: ->
     SVG = require('svg.js')
-    $ = require('jquery')
     this.map = SVG.adopt($('#lower_basin').get(0))
     this.setUpSlider()
+    this.setUpMapClicks()
 
   setUpSlider: ->
     Slider = require('bootstrap-slider')
@@ -35,10 +33,22 @@ Application =
 
   updateFill: (stakeholder) ->
     gradient = this.map.gradient('linear', (stop) ->
-        proportion = Application.annualFlow / 100
+        proportion = Application.getAllotment(stakeholder)
         stop.at(proportion, '#000fff')
         stop.at(proportion, '#aaa')
       ).from(0,1).to(0,0)
     stakeholder.attr({ fill: gradient })
+
+  # accepts a stakeholder (state or mexico) and returns the
+  # percentage of their allotment that they receive given the
+  # available water
+  getAllotment: (stakeholder) ->
+    return this.annualFlow / 100
+
+  setUpMapClicks: ->
+    console.log 'setting up map clicks'
+    $('.stakeholder').each ->
+      name = $(this).attr('id')
+      console.log(name)
 
 module.exports = Application

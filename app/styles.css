@@ -13,6 +13,15 @@
   height: 650px;
 }
 
+path {
+  cursor: pointer;
+}
+path:hover {
+  stroke: #0066CC;
+  stroke-width: 4;
+}
+
+
 #annualFlowSlider .slider-selection {
   background: #BABABA;
 }
