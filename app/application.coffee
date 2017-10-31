@@ -10,9 +10,19 @@ Application =
 
     # TODO: sort out binding of "this" in the call below so
     # I don't have to call Application all over the place (unless that's Right?)
+    #
+    # CITATION: annual flow data from https://www.usbr.gov/lc/region/programs/crbstudy/finalreport/Technical%20Report%20B%20-%20Water%20Supply%20Assessment/TR-B_Water_Supply_Assessment_FINAL.pdf
     $('#annual_flow').slider(
       formatter: (value) ->
         return value + ' maf'
+      min: 0
+      max: 35
+      value: this.annualFlow
+      ticks: [0,5.6, 15, 25.2, 35]
+      ticks_labels: ['','1977', 'mean', '1984','']
+      ticks_positions: [0, 16, 42.9, 72, 100]
+      ticks_snap_bounds: 1
+      step: 0.1
     ).on('change', this.updateAnnualFlow)
     this.updateAnnualFlow()
 
@@ -21,12 +31,11 @@ Application =
   annualFlow: 15
 
   distributeWater: ->
-    console.log 'allocating water'
     SVG.select('.stakeholder').each ->
       Application.updateFill(this)
 
   updateAnnualFlow: ->
-    currFlow = parseInt($('#annual_flow').val())
+    currFlow = parseFloat($('#annual_flow').val())
     Application.annualFlow = currFlow
     $('#annual_flow_val').text(currFlow)
     Application.distributeWater()

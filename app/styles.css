@@ -5,9 +5,6 @@
   color: #3f894a;
 }
 
-#controls {
-}
-
 #map svg {
   width: 500px;
   height: 650px;
@@ -19,9 +16,4 @@ path {
 path:hover {
   stroke: #0066CC;
   stroke-width: 4;
-}
-
-
-#annualFlowSlider .slider-selection {
-  background: #BABABA;
 }
