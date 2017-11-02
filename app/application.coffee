@@ -1,9 +1,11 @@
+WaterAllocation = require('water_allocation')
+SVG = require('svg.js')
 Application =
   initialize: ->
-    SVG = require('svg.js')
     this.map = SVG.adopt($('#lower_basin').get(0))
     this.setUpSlider()
     this.setUpMapClicks()
+    this.setAnnualFlow()
 
   setUpSlider: ->
     Slider = require('bootstrap-slider')
@@ -21,28 +23,34 @@ Application =
       ticks: [0,5.6, 15, 25.2, 35]
       ticks_labels: ['','1977', 'mean', '1984','']
       ticks_positions: [0, 16, 42.9, 72, 100]
-      ticks_snap_bounds: 1
+      ticks_snap_bounds: 0.5
       step: 0.1
-    ).on('change', this.updateAnnualFlow)
-    this.updateAnnualFlow()
+    ).on('change', this.setAnnualFlow)
 
   map: null
 
+  waterApportionments: null
+
   annualFlow: 15
+  deliverToMexico: true
 
   distributeWater: ->
     SVG.select('.stakeholder').each ->
       Application.updateFill(this)
+      state = this.attr('id')
+      $("#" + state + "Flow").
+        text(Application.waterApportionments[state].toFixed(2) + 'maf')
 
-  updateAnnualFlow: ->
+  setAnnualFlow: ->
     currFlow = parseFloat($('#annual_flow').val())
     Application.annualFlow = currFlow
-    $('#annual_flow_val').text(currFlow)
+    Application.waterApportionments = WaterAllocation.determineAllocation(currFlow, Application.deliverToMexico)
+    $('#annual_flow_val').text(currFlow + 'maf')
     Application.distributeWater()
 
   updateFill: (stakeholder) ->
     gradient = this.map.gradient('linear', (stop) ->
-        proportion = Application.getAllotment(stakeholder)
+        proportion = Application.getPortion(stakeholder)
         stop.at(proportion, '#000fff')
         stop.at(proportion, '#aaa')
       ).from(0,1).to(0,0)
@@ -51,13 +59,22 @@ Application =
   # accepts a stakeholder (state or mexico) and returns the
   # percentage of their allotment that they receive given the
   # available water
-  getAllotment: (stakeholder) ->
-    return this.annualFlow / 100
+  getPortion: (stakeholder) ->
+    state = stakeholder.attr('id')
+    return this.waterApportionments[state] / this.fullAllotments[state]
+
+  fullAllotments:
+    mexico: 1.5
+    california: 4.4
+    arizona: 2.85
+    nevada: 0.3
+    colorado: 3.88
+    newMexico: 0.84
+    utah: 1.73
+    wyoming: 1.05
 
   setUpMapClicks: ->
-    console.log 'setting up map clicks'
     $('.stakeholder').each ->
       name = $(this).attr('id')
-      console.log(name)
 
 module.exports = Application

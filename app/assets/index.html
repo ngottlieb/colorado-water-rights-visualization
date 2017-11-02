@@ -25,7 +25,7 @@
             <input name='annual-flow' id='annual_flow' type='text' 
               data-slider-id='annualFlowSlider'></input>
             <div class='pull-right'>
-              <span id='annual_flow_val'></span>maf
+              <span id='annual_flow_val' class='btn btn-warning'></span>
             </div>
           </div>
         </div>
@@ -42,7 +42,9 @@
             </div>
             <div id='overviewCollapse' class='panel-collapse collapse in' role='tabpanel' aria-labelledby='overviewHeading'>
               <div class='panel-body'>
-                Basic info about the structure of water distribution.
+                <p>
+                  High level water distribution amongst the seven states in the Colorado Basin and Mexico is governed by a series of laws and treaties passed over the last century. These laws were built upon a faulty assumption that the mean annual flow at Lee's Ferry (the dividing point between Upper and Lower Basins) was 16.4 million acre feet (maf). It is now understood to be significantly lower, and it is becoming clearer that our existing legal system for distributing water is not sufficient in the face of increasing demand and potentially decreasing supply.
+                  </p>
               </div>
             </div>
           </div>
@@ -53,11 +55,13 @@
                 <a role='button' data-toggle='collapse' data-parent='#info-accordion' href='#mexicoCollapse' aria-expanded='true' aria-controls='mexicoCollapse'>
                   Mexico
                 </a>
+                <span class='pull-right badge' id='mexicoFlow'>maf</span>
               </h4>
             </div>
             <div id='mexicoCollapse' class='panel-collapse collapse' role='tabpanel' aria-labelledby='mexicoHeading'>
               <div class='panel-body'>
-                Basic info about the structure of water distribution.
+                <p>
+                  The Mexican Water Treaty of 1944 grants Mexico the highest priority right to water in the basin up to its allotment of 1.5maf. However, the law allows that under conditions of shortage, the Upper and Lower Basin can reduce their deliveries to Mexico by the same portion that they reduce their own consumption. None of these terms are defined and it is largely up to the discretion of the Secretary of the Interior.
               </div>
             </div>
           </div>
@@ -68,6 +72,7 @@
                 <a role='button' data-toggle='collapse' data-parent='#info-accordion' href='#californiaCollapse' aria-expanded='true' aria-controls='californiaCollapse'>
                   California - Lower Basin
                 </a>
+                <span class='pull-right badge' id='californiaFlow'>maf</span>
               </h4>
             </div>
             <div id='californiaCollapse' class='panel-collapse collapse' role='tabpanel' aria-labelledby='californiaHeading'>
@@ -84,6 +89,7 @@
                 <a role='button' data-toggle='collapse' data-parent='#info-accordion' href='#arizonaCollapse' aria-expanded='true' aria-controls='arizonaCollapse'>
                   Arizona - Lower Basin
                 </a>
+                <span class='pull-right badge' id='arizonaFlow'>maf</span>
               </h4>
             </div>
             <div id='arizonaCollapse' class='panel-collapse collapse' role='tabpanel' aria-labelledby='arizonaHeading'>
@@ -99,6 +105,7 @@
                 <a role='button' data-toggle='collapse' data-parent='#info-accordion' href='#nevadaCollapse' aria-expanded='true' aria-controls='nevadaCollapse'>
                   Nevada - Lower Basin
                 </a>
+                <span class='pull-right badge' id='nevadaFlow'>maf</span>
               </h4>
             </div>
             <div id='nevadaCollapse' class='panel-collapse collapse' role='tabpanel' aria-labelledby='nevadaHeading'>
@@ -114,6 +121,7 @@
                 <a role='button' data-toggle='collapse' data-parent='#info-accordion' href='#coloradoCollapse' aria-expanded='true' aria-controls='coloradoCollapse'>
                   Colorado - Upper Basin
                 </a>
+                <span class='pull-right badge' id='coloradoFlow'>maf</span>
               </h4>
             </div>
             <div id='coloradoCollapse' class='panel-collapse collapse' role='tabpanel' aria-labelledby='coloradoHeading'>
@@ -129,6 +137,7 @@
                 <a role='button' data-toggle='collapse' data-parent='#info-accordion' href='#wyomingCollapse' aria-expanded='true' aria-controls='wyomingCollapse'>
                   Wyoming - Upper Basin
                 </a>
+                <span class='pull-right badge' id='wyomingFlow'>maf</span>
               </h4>
             </div>
             <div id='wyomingCollapse' class='panel-collapse collapse' role='tabpanel' aria-labelledby='wyomingHeading'>
@@ -144,6 +153,7 @@
                 <a role='button' data-toggle='collapse' data-parent='#info-accordion' href='#utahCollapse' aria-expanded='true' aria-controls='utahCollapse'>
                   Utah - Upper Basin
                 </a>
+                <span class='pull-right badge' id='utahFlow'>maf</span>
               </h4>
             </div>
             <div id='utahCollapse' class='panel-collapse collapse' role='tabpanel' aria-labelledby='utahHeading'>
@@ -159,6 +169,7 @@
                 <a role='button' data-toggle='collapse' data-parent='#info-accordion' href='#newMexicoCollapse' aria-expanded='true' aria-controls='newMexicoCollapse'>
                   New Mexico - Upper Basin
                 </a>
+                <span class='pull-right badge' id='newMexicoFlow'>maf</span>
               </h4>
             </div>
             <div id='newMexicoCollapse' class='panel-collapse collapse' role='tabpanel' aria-labelledby='newMexicoHeading'>
