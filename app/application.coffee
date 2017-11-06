@@ -9,17 +9,36 @@ Application =
     this.prepareMap()
     this.updateAnnualFlow()
     this.setUpSlider()
-    #this.setUpMapClicks()
 
   prepareMap: ->
     this.map = L.map('map').setView([32.8, -110], 3.5);
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + mapboxAccessToken,
       id: 'mapbox.light'
     ).addTo(this.map)
-    this.mapFeatures = L.geoJson(usStates.stateData, style: this.mapUnitStyle)
+    this.mapFeatures = L.geoJson(usStates.stateData,
+      style: this.mapUnitStyle
+      onEachFeature: this.onEachMapFeature
+    )
     this.mapFeatures.addData(mexico.mexico).addTo(this.map)
 
+    # build hover-over info control
+    this.mapInfo = L.control()
+    this.mapInfo.onAdd = (map) ->
+      this._div = L.DomUtil.create('div', 'info')
+      this.update()
+      return this._div
+    this.mapInfo.update = (props) ->
+      contents = '<h4>Colorado Basin Water Distribution</h4>'
+      if props
+        contents += Application.stateInfoDisplay(props)
+      else
+        contents += 'Hover over a state'
+      this._div.innerHTML = contents
+
+    this.mapInfo.addTo(this.map)
+
   mapFeatures: null
+  mapInfo: null
 
   setUpSlider: ->
     Slider = require('bootstrap-slider')
@@ -55,20 +74,13 @@ Application =
       $("#" + state + "Flow")
         .text(Application.waterApportionments[state].toFixed(2) + 'maf')
 
-
-    #SVG.select('.stakeholder').each ->
-    #  Application.updateFill(this)
-    #  state = this.attr('id')
-    #  $("#" + state + "Flow").
-    #    text(Application.waterApportionments[state].toFixed(2) + 'maf')
-
   updateAnnualFlow: ->
     currFlow = parseFloat($('#annual_flow').val())
     Application.annualFlow = currFlow
     Application.waterApportionments = WaterAllocation.determineAllocation(currFlow, Application.deliverToMexico)
     Application.updateDisplay()
 
-  # color is a gradient from rgb(247,251,255) to rgb(8,48,107)
+  # color is a divergent gradient from red to white to blue
   getColor: (proportion)->
     if proportion <= 0.5
       red = parseInt(178 + proportion * 75)
@@ -90,6 +102,19 @@ Application =
       fillOpacity: 0.7
     }
 
+  highlightMapUnit: (e) ->
+    layer = e.target
+    layer.setStyle
+      weight: 5
+      color: '#666'
+      dashArray: ''
+    layer.bringToFront()
+    Application.mapInfo.update(layer.feature.properties)
+
+  resetHighlight: (e) ->
+    Application.mapFeatures.resetStyle(e.target)
+    Application.mapInfo.update()
+
   # accepts a stakeholder (state or mexico) and returns the
   # percentage of their allotment that they receive given the
   # available water
@@ -103,6 +128,12 @@ Application =
       .replace(/\s/g, '')
       .replace(/^(.)/, ($1)-> return $1.toLowerCase() )
 
+  onEachMapFeature: (feature, layer) ->
+    layer.on(
+      mouseover: Application.highlightMapUnit
+      mouseout: Application.resetHighlight
+    )
+
   fullAllotments:
     mexico: 1.5
     california: 4.4
@@ -113,8 +144,10 @@ Application =
     utah: 1.73
     wyoming: 1.05
 
-  setUpMapClicks: ->
-    $('.stakeholder').each ->
-      name = $(this).attr('id')
+  stateInfoDisplay: (props) ->
+    state = Application.camelcaseName(props.name)
+    outputHtml = ''
+    outputHtml += '<b class="pull-left">' + props.name + '</b>'
+    outputHtml += '<span class="pull-right">' + Application.waterApportionments[state].toFixed(2) + ' maf</span>'
 
 module.exports = Application
