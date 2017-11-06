@@ -70,9 +70,14 @@ Application =
 
   # color is a gradient from rgb(247,251,255) to rgb(8,48,107)
   getColor: (proportion)->
-    red = parseInt(178 - 155*proportion)
-    green = parseInt(24 + 78*proportion)
-    blue = parseInt(43 + proportion*129)
+    if proportion <= 0.5
+      red = parseInt(178 + proportion * 75)
+      green = parseInt(24 + proportion * 223)
+      blue = parseInt(43 + proportion*204)
+    else
+      red = parseInt(247 - 214*proportion)
+      green = parseInt(247 - 145*proportion)
+      blue = parseInt(247 - proportion*75)
     return 'rgb(' + red + ',' + green + ',' + blue + ')'
 
   mapUnitStyle: (feature)->
