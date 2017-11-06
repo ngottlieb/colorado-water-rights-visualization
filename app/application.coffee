@@ -21,6 +21,12 @@ Application =
     )
     this.mapFeatures.addData(mexico.mexico).addTo(this.map)
 
+    # add legend
+    legend = L.control({position: 'bottomright'})
+    legend.onAdd = this.buildLegend
+    legend.addTo(this.map)
+    
+
     # build hover-over info control
     this.mapInfo = L.control()
     this.mapInfo.onAdd = (map) ->
@@ -83,13 +89,14 @@ Application =
   # color is a divergent gradient from red to white to blue
   getColor: (proportion)->
     if proportion <= 0.5
-      red = parseInt(178 + proportion * 75)
-      green = parseInt(24 + proportion * 223)
-      blue = parseInt(43 + proportion*204)
+      red = parseInt(178 + proportion * 150)
+      green = parseInt(24 + proportion * 446)
+      blue = parseInt(43 + proportion*408)
     else
-      red = parseInt(247 - 214*proportion)
-      green = parseInt(247 - 145*proportion)
-      blue = parseInt(247 - proportion*75)
+      num = proportion - 0.5
+      red = parseInt(247 - 428*num)
+      green = parseInt(247 - 290*num)
+      blue = parseInt(247 - 150*num)
     return 'rgb(' + red + ',' + green + ',' + blue + ')'
 
   mapUnitStyle: (feature)->
@@ -148,6 +155,18 @@ Application =
     state = Application.camelcaseName(props.name)
     outputHtml = ''
     outputHtml += '<b class="pull-left">' + props.name + '</b>'
-    outputHtml += '<span class="pull-right">' + Application.waterApportionments[state].toFixed(2) + ' maf</span>'
+    outputHtml += '<span class="pull-right">' + Application.waterApportionments[state].toFixed(2) + ' maf</span><br />'
+    outputHtml += '<b class="pull-left">% Allotment</b>'
+    outputHtml += '<span class="pull-right">' + (Application.waterApportionments[state] * 100 / Application.fullAllotments[state]).toFixed(0) + '%</span>'
+
+  buildLegend: (map) ->
+    div = L.DomUtil.create('div', 'info legend')
+    grades = [0,0.1, 0.2, 0.3,0.4,0.5,0.6,0.7, 0.8,0.9,1.0]
+    labels = ['0%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '100%']
+    for g, index in grades
+      div.innerHTML +=
+        '<i style="background:' + Application.getColor(g) + '"></i> ' + labels[index] + '<br />'
+    return div
+
 
 module.exports = Application
