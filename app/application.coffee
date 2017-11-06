@@ -31,7 +31,7 @@ Application =
       formatter: (value) ->
         return value + ' maf'
       min: 0
-      max: 35
+      max: 28
       tooltip: 'always'
       value: this.annualFlow
       step: 0.1
