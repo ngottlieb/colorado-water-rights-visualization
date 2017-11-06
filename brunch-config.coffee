@@ -3,6 +3,7 @@ module.exports =
     styles:
       'bootstrap': ['dist/css/bootstrap.css']
       'bootstrap-slider': ['dist/css/bootstrap-slider.css']
+      'leaflet': ['dist/leaflet.css']
     globals:
       $: 'jquery'
       jQuery: 'jquery'

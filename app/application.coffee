@@ -1,15 +1,28 @@
 WaterAllocation = require('water_allocation')
-SVG = require('svg.js')
+L = require('leaflet')
+mapboxAccessToken = 'pk.eyJ1IjoibmdvdHRsaWViIiwiYSI6ImNqOW9uNGRzYTVmNjgzM21xemt0ZHVxZHoifQ.A6Mc9XJp5q23xmPpqbTAcQ'
+usStates = require('us-states')
+mexico = require('mexico')
+
 Application =
   initialize: ->
-    this.map = SVG.adopt($('#lower_basin').get(0))
+    this.prepareMap()
+    this.updateAnnualFlow()
     this.setUpSlider()
-    this.setUpMapClicks()
-    this.setAnnualFlow()
+    #this.setUpMapClicks()
+
+  prepareMap: ->
+    this.map = L.map('map').setView([32.8, -110], 3.5);
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + mapboxAccessToken,
+      id: 'mapbox.light'
+    ).addTo(this.map)
+    this.mapFeatures = L.geoJson(usStates.stateData, style: this.mapUnitStyle)
+    this.mapFeatures.addData(mexico.mexico).addTo(this.map)
+
+  mapFeatures: null
 
   setUpSlider: ->
     Slider = require('bootstrap-slider')
-
     # TODO: sort out binding of "this" in the call below so
     # I don't have to call Application all over the place (unless that's Right?)
     #
@@ -22,46 +35,68 @@ Application =
       tooltip: 'always'
       value: this.annualFlow
       step: 0.1
-    ).on('change', this.setAnnualFlow)
+    ).on('change', this.updateAnnualFlow)
 
     $('.flow-btn').on 'click', ->
       slider.slider('setValue',$(this).data('flow'), true, true)
 
   map: null
 
-  waterApportionments: null
+  waterApportionments: {}
 
   annualFlow: 15
   deliverToMexico: true
 
-  distributeWater: ->
-    SVG.select('.stakeholder').each ->
-      Application.updateFill(this)
-      state = this.attr('id')
-      $("#" + state + "Flow").
-        text(Application.waterApportionments[state].toFixed(2) + 'maf')
+  updateDisplay: ->
+    Application.mapFeatures.setStyle(Application.mapUnitStyle)
+    Application.mapFeatures.eachLayer (layer) ->
+      # update maf label on info tab
+      state = Application.camelcaseName(layer.feature.properties.name)
+      $("#" + state + "Flow")
+        .text(Application.waterApportionments[state].toFixed(2) + 'maf')
 
-  setAnnualFlow: ->
+
+    #SVG.select('.stakeholder').each ->
+    #  Application.updateFill(this)
+    #  state = this.attr('id')
+    #  $("#" + state + "Flow").
+    #    text(Application.waterApportionments[state].toFixed(2) + 'maf')
+
+  updateAnnualFlow: ->
     currFlow = parseFloat($('#annual_flow').val())
     Application.annualFlow = currFlow
     Application.waterApportionments = WaterAllocation.determineAllocation(currFlow, Application.deliverToMexico)
-    $('#annual_flow_val').text(currFlow + 'maf')
-    Application.distributeWater()
+    Application.updateDisplay()
 
-  updateFill: (stakeholder) ->
-    gradient = this.map.gradient('linear', (stop) ->
-        proportion = Application.getPortion(stakeholder)
-        stop.at(proportion, '#000fff')
-        stop.at(proportion, '#aaa')
-      ).from(0,1).to(0,0)
-    stakeholder.attr({ fill: gradient })
+  # color is a gradient from rgb(247,251,255) to rgb(8,48,107)
+  getColor: (proportion)->
+    red = parseInt(178 - 155*proportion)
+    green = parseInt(24 + 78*proportion)
+    blue = parseInt(43 + proportion*129)
+    return 'rgb(' + red + ',' + green + ',' + blue + ')'
+
+  mapUnitStyle: (feature)->
+    return {
+      fillColor: Application.getColor(Application.getProportion(feature))
+      weight: 2
+      opacity: 1
+      color: 'white'
+      dashArray: '3'
+      fillOpacity: 0.7
+    }
 
   # accepts a stakeholder (state or mexico) and returns the
   # percentage of their allotment that they receive given the
   # available water
-  getPortion: (stakeholder) ->
-    state = stakeholder.attr('id')
+  getProportion: (feature) ->
+    state = Application.camelcaseName(feature.properties.name)
     return this.waterApportionments[state] / this.fullAllotments[state]
+
+  camelcaseName: (name) ->
+    return name
+      .replace(/\s(.)/g, ($1)-> return $1.toUpperCase() )
+      .replace(/\s/g, '')
+      .replace(/^(.)/, ($1)-> return $1.toLowerCase() )
 
   fullAllotments:
     mexico: 1.5
