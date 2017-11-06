@@ -19,13 +19,24 @@
       <div class='col-sm-5 well'>
         <div class='panel panel-primary'>
           <div class='panel-heading'>
-            Annual Water Supply at Lee's Ferry
+            Annual Water Supply at Lee's Ferry (millions of acre feet)
           </div>
           <div class='panel-body'>
-            <input name='annual-flow' id='annual_flow' type='text' 
-              data-slider-id='annualFlowSlider'></input>
-            <div class='pull-right'>
-              <span id='annual_flow_val' class='btn btn-warning'></span>
+            <div class='row top-margin'>
+              <div class='col-sm-12'>
+                <div class='controls'>
+                  <input name='annual-flow' id='annual_flow' type='text' 
+                    data-slider-id='annualFlowSlider'></input>
+                  </div>
+              </div>
+            </div>
+            <div class='row top-margin'>
+              <div class='col-sm-12'>
+                Set to:
+                <span class='btn btn-warning flow-btn' data-flow='5.6'>Historical Min [1977]</span>
+                <span class='btn btn-primary flow-btn' data-flow='15'>Historical Mean</span>
+                <span class='btn btn-success flow-btn' data-flow='25.2'>Historical Max [1984]</span>
+              </div>
             </div>
           </div>
         </div>
