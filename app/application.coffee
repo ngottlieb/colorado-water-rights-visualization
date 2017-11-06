@@ -14,18 +14,18 @@ Application =
     # I don't have to call Application all over the place (unless that's Right?)
     #
     # CITATION: annual flow data from https://www.usbr.gov/lc/region/programs/crbstudy/finalreport/Technical%20Report%20B%20-%20Water%20Supply%20Assessment/TR-B_Water_Supply_Assessment_FINAL.pdf
-    $('#annual_flow').slider(
+    slider = $('#annual_flow').slider(
       formatter: (value) ->
         return value + ' maf'
       min: 0
       max: 35
+      tooltip: 'always'
       value: this.annualFlow
-      ticks: [0,5.6, 15, 25.2, 35]
-      ticks_labels: ['','1977', 'mean', '1984','']
-      ticks_positions: [0, 16, 42.9, 72, 100]
-      ticks_snap_bounds: 0.5
       step: 0.1
     ).on('change', this.setAnnualFlow)
+
+    $('.flow-btn').on 'click', ->
+      slider.slider('setValue',$(this).data('flow'), true, true)
 
   map: null
 
