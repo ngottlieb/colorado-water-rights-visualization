@@ -3,12 +3,13 @@ L = require('leaflet')
 mapboxAccessToken = 'pk.eyJ1IjoibmdvdHRsaWViIiwiYSI6ImNqOW9uNGRzYTVmNjgzM21xemt0ZHVxZHoifQ.A6Mc9XJp5q23xmPpqbTAcQ'
 usStates = require('us-states')
 mexico = require('mexico')
+WaterData = require('water_data')
 
 Application =
   initialize: ->
     this.prepareMap()
     this.updateAnnualFlow()
-    this.setUpSlider()
+    this.setUpControls()
 
   prepareMap: ->
     this.map = L.map('map').setView([32.8, -110], 3.5);
@@ -26,7 +27,6 @@ Application =
     legend.onAdd = this.buildLegend
     legend.addTo(this.map)
     
-
     # build hover-over info control
     this.mapInfo = L.control()
     this.mapInfo.onAdd = (map) ->
@@ -46,11 +46,12 @@ Application =
   mapFeatures: null
   mapInfo: null
 
-  setUpSlider: ->
+  # controlled by the select box control for what's on the map
+  mapVariable: 'legalAllocation'
+
+  setUpControls: ->
+    # Set up slider
     Slider = require('bootstrap-slider')
-    # TODO: sort out binding of "this" in the call below so
-    # I don't have to call Application all over the place (unless that's Right?)
-    #
     # CITATION: annual flow data from https://www.usbr.gov/lc/region/programs/crbstudy/finalreport/Technical%20Report%20B%20-%20Water%20Supply%20Assessment/TR-B_Water_Supply_Assessment_FINAL.pdf
     slider = $('#annual_flow').slider(
       formatter: (value) ->
@@ -64,6 +65,11 @@ Application =
 
     $('.flow-btn').on 'click', ->
       slider.slider('setValue',$(this).data('flow'), true, true)
+
+    # set up select box variable control
+    $('#mapVariableControl').on 'change', ->
+      Application.mapVariable = $(this).val()
+      Application.updateDisplay()
 
   map: null
 
@@ -88,7 +94,9 @@ Application =
 
   # color is a divergent gradient from red to white to blue
   getColor: (proportion)->
-    if proportion <= 0.5
+    if proportion == 'na'
+      return '#2ca25f'
+    else if proportion <= 0.5
       red = parseInt(178 + proportion * 150)
       green = parseInt(24 + proportion * 446)
       blue = parseInt(43 + proportion*408)
@@ -127,7 +135,33 @@ Application =
   # available water
   getProportion: (feature) ->
     state = Application.camelcaseName(feature.properties.name)
-    return this.waterApportionments[state] / this.fullAllotments[state]
+    water = this.waterApportionments[state]
+    if Application.mapVariable == 'legalAllocation'
+      return water / WaterData.legalAllotments[state]
+    else
+      denom = Application.averageRecentConsumptiveUse(state)
+      if denom == 'na'
+        return 'na'
+      else
+        proportion = water / denom
+        if proportion > 1
+          return 1
+        else
+          return proportion
+
+  # averages all available consumptive use datapoints since 2001
+  averageRecentConsumptiveUse: (state) ->
+    sum = 0
+    n = 0
+    for year, value of WaterData.historicalConsumptiveUse[state]
+      if parseInt(year) >= 2001
+        sum += value
+        n += 1
+    if n > 0
+      return sum/n
+    else
+      return 'na'
+
 
   camelcaseName: (name) ->
     return name
@@ -141,29 +175,22 @@ Application =
       mouseout: Application.resetHighlight
     )
 
-  fullAllotments:
-    mexico: 1.5
-    california: 4.4
-    arizona: 2.85
-    nevada: 0.3
-    colorado: 3.88
-    newMexico: 0.84
-    utah: 1.73
-    wyoming: 1.05
-
   stateInfoDisplay: (props) ->
     state = Application.camelcaseName(props.name)
     outputHtml = ''
     outputHtml += '<b class="pull-left">' + props.name + '</b>'
     outputHtml += '<span class="pull-right">' + Application.waterApportionments[state].toFixed(2) + ' maf</span><br />'
-    outputHtml += '<b class="pull-left">% Allotment</b>'
-    outputHtml += '<span class="pull-right">' + (Application.waterApportionments[state] * 100 / Application.fullAllotments[state]).toFixed(0) + '%</span>'
+    outputHtml += '<b class="pull-left">% Legal Allocation</b>'
+    outputHtml += '<span class="pull-right">' + (Application.waterApportionments[state] * 100 / WaterData.legalAllotments[state]).toFixed(0) + '%</span>'
 
   buildLegend: (map) ->
     div = L.DomUtil.create('div', 'info legend')
-    grades = [0,0.1, 0.2, 0.3,0.4,0.5,0.6,0.7, 0.8,0.9,1.0]
-    labels = ['0%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '100%']
+    grades = [0,0.1, 0.2, 0.3,0.4,0.5,0.6,0.7, 0.8,0.9,1.0, 'na']
+    labels = ['0%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '100%', 'Data Unavailable']
     for g, index in grades
+      # separate the "Data Unavailable" from the rest
+      if index == grades.length - 1
+        div.innerHTML += '<br />'
       div.innerHTML +=
         '<i style="background:' + Application.getColor(g) + '"></i> ' + labels[index] + '<br />'
     return div

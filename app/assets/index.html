@@ -41,8 +41,24 @@
           </div>
         </div>
 
-        <div class='panel-group' id='info-accordion' role='tablist' aria-multiselectable='false'>
+        <div class='panel panel-info'>
+          <div class='panel-heading'>
+            What's on the Map
+          </div>
+          <div class='panel-body'>
+            <div class='row top-margin'>
+              <div class='col-sm-12'>
+                Displaying <span class='badge'>available water</span> as a portion of
+                <select name='mapVariable' id='mapVariableControl'>
+                  <option value='legalAllocation' selected="true">Legal Allocation</option>
+                  <option value='consumptiveUse'>Recent Consumptive Use</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
 
+        <div class='panel-group' id='info-accordion' role='tablist' aria-multiselectable='false'>
           <div class='panel panel-default'>
             <div class='panel-heading' role='tab' id='overviewHeading'>
               <h4 class='panel-title'>
