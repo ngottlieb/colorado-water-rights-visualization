@@ -16,7 +16,7 @@
 
   <div class='container-fluid'>
     <div class='row'>
-      <div class='col-sm-5 well'>
+      <div class='col-sm-4 well'>
         <div class='panel panel-primary'>
           <div class='panel-heading'>
             Annual Water Supply at Lee's Ferry (millions of acre feet)
@@ -32,10 +32,10 @@
             </div>
             <div class='row top-margin'>
               <div class='col-sm-12'>
-                Set to:
-                <span class='btn btn-warning flow-btn' data-flow='5.6'>Historical Min [1977]</span>
-                <span class='btn btn-primary flow-btn' data-flow='15'>Historical Mean</span>
-                <span class='btn btn-success flow-btn' data-flow='25.2'>Historical Max [1984]</span>
+                Set to: <br/>
+                <span class='btn btn-sm btn-warning flow-btn' data-flow='5.6'>Historical Min [1977]</span>
+                <span class='btn btn-sm btn-primary flow-btn' data-flow='15'>Historical Mean</span>
+                <span class='btn btn-sm btn-success flow-btn' data-flow='25.2'>Historical Max [1984]</span>
               </div>
             </div>
           </div>
@@ -48,7 +48,7 @@
           <div class='panel-body'>
             <div class='row top-margin'>
               <div class='col-sm-12'>
-                Displaying <span class='badge'>available water</span> as a portion of
+                <b>Available water</b> as a portion of
                 <select name='mapVariable' id='mapVariableControl'>
                   <option value='legalAllocation' selected="true">Legal Allocation</option>
                   <option value='consumptiveUse'>Recent Consumptive Use</option>
@@ -58,159 +58,22 @@
           </div>
         </div>
 
-        <div class='panel-group' id='info-accordion' role='tablist' aria-multiselectable='false'>
-          <div class='panel panel-default'>
-            <div class='panel-heading' role='tab' id='overviewHeading'>
-              <h4 class='panel-title'>
-                <a role='button' data-toggle='collapse' data-parent='#info-accordion' href='#overviewCollapse' aria-expanded='true' aria-controls='overviewCollapse'>
-                  Overview
-                </a>
-              </h4>
-            </div>
-            <div id='overviewCollapse' class='panel-collapse collapse in' role='tabpanel' aria-labelledby='overviewHeading'>
-              <div class='panel-body'>
-                <p>
-                  High level water distribution amongst the seven states in the Colorado Basin and Mexico is governed by a series of laws and treaties passed over the last century. These laws were built upon a faulty assumption that the mean annual flow at Lee's Ferry (the dividing point between Upper and Lower Basins) was 16.4 million acre feet (maf). It is now understood to be significantly lower, and it is becoming clearer that our existing legal system for distributing water is not sufficient in the face of increasing demand and potentially decreasing supply.
-                  </p>
-              </div>
-            </div>
+        <div class='panel panel-default'>
+          <div class='panel-heading'>
+            <h4 class='panel-title'>
+                Overview
+            </h4>
           </div>
-
-          <div class='panel panel-default'>
-            <div class='panel-heading' role='tab' id='mexicoHeading'>
-              <h4 class='panel-title'>
-                <a role='button' data-toggle='collapse' data-parent='#info-accordion' href='#mexicoCollapse' aria-expanded='true' aria-controls='mexicoCollapse'>
-                  Mexico
-                </a>
-                <span class='pull-right badge' id='mexicoFlow'>maf</span>
-              </h4>
-            </div>
-            <div id='mexicoCollapse' class='panel-collapse collapse' role='tabpanel' aria-labelledby='mexicoHeading'>
-              <div class='panel-body'>
-                <p>
-                  The Mexican Water Treaty of 1944 grants Mexico the highest priority right to water in the basin up to its allotment of 1.5maf. However, the law allows that under conditions of shortage, the Upper and Lower Basin can reduce their deliveries to Mexico by the same portion that they reduce their own consumption. None of these terms are defined and it is largely up to the discretion of the Secretary of the Interior.
-              </div>
-            </div>
+          <div class='panel-body'>
+            <p>
+              High level water distribution amongst the seven states in the Colorado Basin and Mexico is governed by a series of laws and treaties passed over the last century. These laws were built upon a faulty assumption that the mean annual flow at Lee's Ferry (the dividing point between Upper and Lower Basins) was 16.4 million acre feet (maf). It is now understood to be significantly lower, and it is becoming clearer that our existing legal system for distributing water is not sufficient in the face of increasing demand and potentially decreasing supply.
+              </p>
           </div>
-
-          <div class='panel panel-default'>
-            <div class='panel-heading' role='tab' id='californiaHeading'>
-              <h4 class='panel-title'>
-                <a role='button' data-toggle='collapse' data-parent='#info-accordion' href='#californiaCollapse' aria-expanded='true' aria-controls='californiaCollapse'>
-                  California - Lower Basin
-                </a>
-                <span class='pull-right badge' id='californiaFlow'>maf</span>
-              </h4>
-            </div>
-            <div id='californiaCollapse' class='panel-collapse collapse' role='tabpanel' aria-labelledby='californiaHeading'>
-              <div class='panel-body'>
-                Basic info about the structure of water distribution.
-              </div>
-            </div>
-          </div>
-
-
-          <div class='panel panel-default'>
-            <div class='panel-heading' role='tab' id='arizonaHeading'>
-              <h4 class='panel-title'>
-                <a role='button' data-toggle='collapse' data-parent='#info-accordion' href='#arizonaCollapse' aria-expanded='true' aria-controls='arizonaCollapse'>
-                  Arizona - Lower Basin
-                </a>
-                <span class='pull-right badge' id='arizonaFlow'>maf</span>
-              </h4>
-            </div>
-            <div id='arizonaCollapse' class='panel-collapse collapse' role='tabpanel' aria-labelledby='arizonaHeading'>
-              <div class='panel-body'>
-                Basic info about the structure of water distribution.
-              </div>
-            </div>
-          </div>
-
-          <div class='panel panel-default'>
-            <div class='panel-heading' role='tab' id='nevadaHeading'>
-              <h4 class='panel-title'>
-                <a role='button' data-toggle='collapse' data-parent='#info-accordion' href='#nevadaCollapse' aria-expanded='true' aria-controls='nevadaCollapse'>
-                  Nevada - Lower Basin
-                </a>
-                <span class='pull-right badge' id='nevadaFlow'>maf</span>
-              </h4>
-            </div>
-            <div id='nevadaCollapse' class='panel-collapse collapse' role='tabpanel' aria-labelledby='nevadaHeading'>
-              <div class='panel-body'>
-                Basic info about the structure of water distribution.
-              </div>
-            </div>
-          </div>
-
-          <div class='panel panel-default'>
-            <div class='panel-heading' role='tab' id='coloradoHeading'>
-              <h4 class='panel-title'>
-                <a role='button' data-toggle='collapse' data-parent='#info-accordion' href='#coloradoCollapse' aria-expanded='true' aria-controls='coloradoCollapse'>
-                  Colorado - Upper Basin
-                </a>
-                <span class='pull-right badge' id='coloradoFlow'>maf</span>
-              </h4>
-            </div>
-            <div id='coloradoCollapse' class='panel-collapse collapse' role='tabpanel' aria-labelledby='coloradoHeading'>
-              <div class='panel-body'>
-                Basic info about the structure of water distribution.
-              </div>
-            </div>
-          </div>
-
-          <div class='panel panel-default'>
-            <div class='panel-heading' role='tab' id='wyomingHeading'>
-              <h4 class='panel-title'>
-                <a role='button' data-toggle='collapse' data-parent='#info-accordion' href='#wyomingCollapse' aria-expanded='true' aria-controls='wyomingCollapse'>
-                  Wyoming - Upper Basin
-                </a>
-                <span class='pull-right badge' id='wyomingFlow'>maf</span>
-              </h4>
-            </div>
-            <div id='wyomingCollapse' class='panel-collapse collapse' role='tabpanel' aria-labelledby='wyomingHeading'>
-              <div class='panel-body'>
-                Basic info about the structure of water distribution.
-              </div>
-            </div>
-          </div>
-
-          <div class='panel panel-default'>
-            <div class='panel-heading' role='tab' id='utahHeading'>
-              <h4 class='panel-title'>
-                <a role='button' data-toggle='collapse' data-parent='#info-accordion' href='#utahCollapse' aria-expanded='true' aria-controls='utahCollapse'>
-                  Utah - Upper Basin
-                </a>
-                <span class='pull-right badge' id='utahFlow'>maf</span>
-              </h4>
-            </div>
-            <div id='utahCollapse' class='panel-collapse collapse' role='tabpanel' aria-labelledby='utahHeading'>
-              <div class='panel-body'>
-                Basic info about the structure of water distribution.
-              </div>
-            </div>
-          </div>
-
-          <div class='panel panel-default'>
-            <div class='panel-heading' role='tab' id='newMexicoHeading'>
-              <h4 class='panel-title'>
-                <a role='button' data-toggle='collapse' data-parent='#info-accordion' href='#newMexicoCollapse' aria-expanded='true' aria-controls='newMexicoCollapse'>
-                  New Mexico - Upper Basin
-                </a>
-                <span class='pull-right badge' id='newMexicoFlow'>maf</span>
-              </h4>
-            </div>
-            <div id='newMexicoCollapse' class='panel-collapse collapse' role='tabpanel' aria-labelledby='newMexicoHeading'>
-              <div class='panel-body'>
-                Basic info about the structure of water distribution.
-              </div>
-            </div>
-          </div>
-
         </div>
 
       </div>
 
-      <div class='col-sm-7'>
+      <div class='col-sm-8'>
         <div id="map">
         </div>
       </div>
