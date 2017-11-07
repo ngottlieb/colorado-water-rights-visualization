@@ -16,7 +16,7 @@
 
   <div class='container-fluid'>
     <div class='row'>
-      <div class='col-sm-5 well'>
+      <div class='col-sm-4 well'>
         <div class='panel panel-primary'>
           <div class='panel-heading'>
             Annual Water Supply at Lee's Ferry (millions of acre feet)
@@ -32,10 +32,10 @@
             </div>
             <div class='row top-margin'>
               <div class='col-sm-12'>
-                Set to:
-                <span class='btn btn-warning flow-btn' data-flow='5.6'>Historical Min [1977]</span>
-                <span class='btn btn-primary flow-btn' data-flow='15'>Historical Mean</span>
-                <span class='btn btn-success flow-btn' data-flow='25.2'>Historical Max [1984]</span>
+                Set to: <br/>
+                <span class='btn btn-sm btn-warning flow-btn' data-flow='5.6'>Historical Min [1977]</span>
+                <span class='btn btn-sm btn-primary flow-btn' data-flow='15'>Historical Mean</span>
+                <span class='btn btn-sm btn-success flow-btn' data-flow='25.2'>Historical Max [1984]</span>
               </div>
             </div>
           </div>
@@ -48,7 +48,7 @@
           <div class='panel-body'>
             <div class='row top-margin'>
               <div class='col-sm-12'>
-                Displaying <span class='badge'>available water</span> as a portion of
+                <b>Available water</b> as a portion of
                 <select name='mapVariable' id='mapVariableControl'>
                   <option value='legalAllocation' selected="true">Legal Allocation</option>
                   <option value='consumptiveUse'>Recent Consumptive Use</option>
@@ -73,7 +73,7 @@
 
       </div>
 
-      <div class='col-sm-7'>
+      <div class='col-sm-8'>
         <div id="map">
         </div>
       </div>
