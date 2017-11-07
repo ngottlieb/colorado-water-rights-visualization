@@ -95,7 +95,7 @@ Application =
   # color is a divergent gradient from red to white to blue
   getColor: (proportion)->
     if proportion == 'na'
-      return '#2ca25f'
+      return '#fec44f'
     else if proportion <= 0.5
       red = parseInt(178 + proportion * 150)
       green = parseInt(24 + proportion * 446)
