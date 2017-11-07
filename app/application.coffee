@@ -177,11 +177,22 @@ Application =
 
   stateInfoDisplay: (props) ->
     state = Application.camelcaseName(props.name)
+    water = Application.waterApportionments[state]
+    avgUse = Application.averageRecentConsumptiveUse(state)
+    if avgUse == 'na'
+      percConsumptiveUse = 'N/A'
+    else
+      proportionUsed = if water > avgUse then 1 else water / avgUse
+      percConsumptiveUse = "#{(proportionUsed * 100).toFixed(0)}%"
+    keyValPairs =
+      "#{props.name}": "#{water.toFixed(2)} maf"
+      "% Legal Allocation": "#{(water * 100 / WaterData.legalAllotments[state]).toFixed(0)}%"
+      "% Avg Consumptive Use": percConsumptiveUse
     outputHtml = ''
-    outputHtml += '<b class="pull-left">' + props.name + '</b>'
-    outputHtml += '<span class="pull-right">' + Application.waterApportionments[state].toFixed(2) + ' maf</span><br />'
-    outputHtml += '<b class="pull-left">% Legal Allocation</b>'
-    outputHtml += '<span class="pull-right">' + (Application.waterApportionments[state] * 100 / WaterData.legalAllotments[state]).toFixed(0) + '%</span>'
+    for key, value of keyValPairs
+      outputHtml += "<b class='pull-left'>#{key}</b>"
+      outputHtml += "<span class='pull-right'>#{value}</span><br />"
+    outputHtml
 
   buildLegend: (map) ->
     div = L.DomUtil.create('div', 'info legend')
