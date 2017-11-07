@@ -5,7 +5,8 @@ WaterAllocation =
       california: 0
       utah: 0
       newMexico: 0
-      arizona: 0
+      arizonaLowerBasin: 0
+      arizonaUpperBasin: 0
       colorado: 0
       wyoming: 0
       nevada: 0
@@ -26,13 +27,13 @@ WaterAllocation =
     allocations.nevada = this.allocate(0.3, remainingFlow)
     remainingFlow = remainingFlow - allocations.nevada
 
-    allocations.arizona = this.allocate(2.8, remainingFlow)
-    remainingFlow = remainingFlow - allocations.arizona
+    allocations.arizonaLowerBasin = this.allocate(2.8, remainingFlow)
+    remainingFlow = remainingFlow - allocations.arizonaLowerBasin
 
     # Upper Basin
     # Arizona has a small portion
     azBonus = this.allocate(0.05, remainingFlow)
-    allocations.arizona += azBonus
+    allocations.arizonaUpperBasin = azBonus
     remainingFlow = remainingFlow - azBonus
 
     # the rest of the Upper Basin is divisioned up based on percentages,

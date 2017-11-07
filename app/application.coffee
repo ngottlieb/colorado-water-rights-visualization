@@ -166,6 +166,7 @@ Application =
   camelcaseName: (name) ->
     return name
       .replace(/\s(.)/g, ($1)-> return $1.toUpperCase() )
+      .replace(/\-/g, '')
       .replace(/\s/g, '')
       .replace(/^(.)/, ($1)-> return $1.toLowerCase() )
 
@@ -177,6 +178,7 @@ Application =
 
   stateInfoDisplay: (props) ->
     state = Application.camelcaseName(props.name)
+    console.log state
     water = Application.waterApportionments[state]
     avgUse = Application.averageRecentConsumptiveUse(state)
     if avgUse == 'na'

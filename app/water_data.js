@@ -2,7 +2,8 @@ module.exports = {
   legalAllotments: {
     mexico: 1.5,
     california: 4.4,
-    arizona: 2.85,
+    arizonaLowerBasin: 2.80,
+    arizonaUpperBasin: 0.05,
     nevada: 0.3,
     colorado: 3.88,
     newMexico: 0.84,
@@ -78,7 +79,7 @@ module.exports = {
       '2002': 2.184,
       '2001': 2.405
     },
-    arizona: {
+    arizonaLowerBasin: {
       '2005': 2.429,
       '2004': 2.785,
       '2003': 2.831,
