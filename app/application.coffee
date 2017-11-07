@@ -83,8 +83,6 @@ Application =
       sum += v
     Application.totalLegalAllotment = sum
 
-
-
   # controlled by the select box control for what's on the map
   mapVariable: 'legalAllocation'
 
@@ -120,11 +118,6 @@ Application =
   updateDisplay: ->
     Application.mapFeatures.setStyle(Application.mapUnitStyle)
     Application.mapSurplusDisplay.update()
-    Application.mapFeatures.eachLayer (layer) ->
-      # update maf label on info tab
-      state = Application.camelcaseName(layer.feature.properties.name)
-      $("#" + state + "Flow")
-        .text(Application.waterAllocation[state].toFixed(2) + 'maf')
 
   updateAnnualFlow: ->
     currFlow = parseFloat($('#annual_flow').val())
