@@ -47,7 +47,7 @@ WaterAllocation =
     
     remainingFlow = remainingFlow - upperBasinAllotment
 
-    surplus = remainingFlow
+    allocations.surplus = remainingFlow
 
     return allocations
 

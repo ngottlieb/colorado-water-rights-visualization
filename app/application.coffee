@@ -7,6 +7,7 @@ WaterData = require('water_data')
 
 Application =
   initialize: ->
+    this.calculateTotals()
     this.prepareMap()
     this.updateAnnualFlow()
     this.setUpControls()
@@ -40,11 +41,49 @@ Application =
       else
         contents += 'Hover over a state'
       this._div.innerHTML = contents
-
     this.mapInfo.addTo(this.map)
+
+    this.mapSurplusDisplay = L.control({position: 'bottomleft'})
+    this.mapSurplusDisplay.onAdd = (map) ->
+      this._div = L.DomUtil.create('div', 'info')
+      this.update()
+      return this._div
+    this.mapSurplusDisplay.update = ->
+      if Application.mapVariable == 'legalAllocation'
+        baseLine = Application.totalLegalAllotment
+        relativeTo = 'Legal Allocation'
+      else
+        baseLine = Application.totalAvgConsumptiveUse
+        relativeTo = 'Recent Avg Consumptive Use'
+
+      difference = Application.annualFlow - baseLine
+      surp_def = if difference >= 0 then 'Surplus' else 'Deficit'
+      contents = "<h4>Basin-wide #{surp_def}</h4>"
+      contents += "<b>Relative to #{relativeTo}</b><br />"
+      contents += "<span class='pull-right badge'>#{difference.toFixed(2)} maf</span>"
+      this._div.innerHTML = contents
+    this.mapSurplusDisplay.addTo(this.map)
 
   mapFeatures: null
   mapInfo: null
+  mapSurplusDisplay: null
+
+  totalAvgConsumptiveUse: 0
+  totalLegalAllotment: 0
+
+  calculateTotals: ->
+    sum = 0
+    for k in Object.keys(WaterData.historicalConsumptiveUse)
+      avgUse = Application.averageRecentConsumptiveUse(k)
+      if avgUse != 'na'
+        sum += avgUse
+    Application.totalAvgConsumptiveUse = (sum).toFixed(2)
+    sum = 0
+    for k, v of WaterData.legalAllotments
+      sum += v
+    Application.totalLegalAllotment = sum
+
+
 
   # controlled by the select box control for what's on the map
   mapVariable: 'legalAllocation'
@@ -73,23 +112,24 @@ Application =
 
   map: null
 
-  waterApportionments: {}
+  waterAllocation: {}
 
   annualFlow: 15
   deliverToMexico: true
 
   updateDisplay: ->
     Application.mapFeatures.setStyle(Application.mapUnitStyle)
+    Application.mapSurplusDisplay.update()
     Application.mapFeatures.eachLayer (layer) ->
       # update maf label on info tab
       state = Application.camelcaseName(layer.feature.properties.name)
       $("#" + state + "Flow")
-        .text(Application.waterApportionments[state].toFixed(2) + 'maf')
+        .text(Application.waterAllocation[state].toFixed(2) + 'maf')
 
   updateAnnualFlow: ->
     currFlow = parseFloat($('#annual_flow').val())
     Application.annualFlow = currFlow
-    Application.waterApportionments = WaterAllocation.determineAllocation(currFlow, Application.deliverToMexico)
+    Application.waterAllocation = WaterAllocation.determineAllocation(currFlow, Application.deliverToMexico)
     Application.updateDisplay()
 
   # color is a divergent gradient from red to white to blue
@@ -135,7 +175,7 @@ Application =
   # available water
   getProportion: (feature) ->
     state = Application.camelcaseName(feature.properties.name)
-    water = this.waterApportionments[state]
+    water = this.waterAllocation[state]
     if Application.mapVariable == 'legalAllocation'
       return water / WaterData.legalAllotments[state]
     else
@@ -178,8 +218,7 @@ Application =
 
   stateInfoDisplay: (props) ->
     state = Application.camelcaseName(props.name)
-    console.log state
-    water = Application.waterApportionments[state]
+    water = Application.waterAllocation[state]
     avgUse = Application.averageRecentConsumptiveUse(state)
     if avgUse == 'na'
       percConsumptiveUse = 'N/A'
