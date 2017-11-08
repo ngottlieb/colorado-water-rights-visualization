@@ -220,8 +220,8 @@ Application =
       percConsumptiveUse = "#{(proportionUsed * 100).toFixed(0)}%"
     keyValPairs =
       "#{props.name}": "#{water.toFixed(2)} maf"
-      "% Legal Allocation": "#{(water * 100 / WaterData.legalAllotments[state]).toFixed(0)}%"
-      "% Avg Consumptive Use": percConsumptiveUse
+      "% of Legal Allocation": "#{(water * 100 / WaterData.legalAllotments[state]).toFixed(0)}%"
+      "% of Avg Consumptive Use": percConsumptiveUse
     outputHtml = ''
     for key, value of keyValPairs
       outputHtml += "<b class='pull-left'>#{key}</b>"
