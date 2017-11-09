@@ -107,7 +107,14 @@ Application =
     $('#mapVariableControl').on 'change', ->
       Application.mapVariable = $(this).val()
       Application.updateDisplay()
-      $('#' + Application.mapVariable + 'Collapse').collapse({toggle: true, parent: '#explanatoryAccordion'})
+
+  updateExplanations: ->
+    currentlyIn = Application.mapVariable
+    currentlyOut = if Application.mapVariable == 'legalAllocation' then 'consumptiveUse' else 'legalAllocation'
+    $("##{currentlyIn}Blurb").show()
+    $("##{currentlyOut}Blurb").hide()
+    $("##{currentlyIn}Collapse").collapse('show')
+    $("##{currentlyOut}Collapse").collapse('hide')
 
   map: null
 
@@ -119,6 +126,7 @@ Application =
   updateDisplay: ->
     Application.mapFeatures.setStyle(Application.mapUnitStyle)
     Application.mapSurplusDisplay.update()
+    Application.updateExplanations()
 
   updateAnnualFlow: ->
     currFlow = parseFloat($('#annual_flow').val())
