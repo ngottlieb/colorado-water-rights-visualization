@@ -43,33 +43,74 @@
 
         <div class='panel panel-info'>
           <div class='panel-heading'>
-            What's on the Map
+            What's On the Map
           </div>
           <div class='panel-body'>
             <div class='row top-margin'>
               <div class='col-sm-12'>
-                <b>Available water</b> as a portion of
-                <select name='mapVariable' id='mapVariableControl'>
-                  <option value='legalAllocation' selected="true">Legal Allocation</option>
-                  <option value='consumptiveUse'>Recent Consumptive Use</option>
-                </select>
+								<p>
+									<span class='badge'>available water</span> as a percentage of <br /><br />
+			  					<span>
+					   				<select name='mapVariable' id='mapVariableControl'>
+					          	<option value='legalAllocation' selected="true">Legal Allocation</option>
+					            <option value='consumptiveUse'>Recent Consumptive Use</option>
+					          </select>
+									</span>
+								</p>
               </div>
             </div>
           </div>
         </div>
 
-        <div class='panel panel-default'>
-          <div class='panel-heading'>
-            <h4 class='panel-title'>
-                Overview
-            </h4>
-          </div>
-          <div class='panel-body'>
-            <p>
-              High level water distribution amongst the seven states in the Colorado Basin and Mexico is governed by a series of laws and treaties passed over the last century. These laws were built upon a faulty assumption that the mean annual flow at Lee's Ferry (the dividing point between Upper and Lower Basins) was 16.4 million acre feet (maf). It is now understood to be significantly lower, and it is becoming clearer that our existing legal system for distributing water is not sufficient in the face of increasing demand and potentially decreasing supply.
-              </p>
-          </div>
-        </div>
+				<div class='panel-group' id='explanatoryAccordion' role='tablist' aria-multiselectable='false'>
+					
+	        <div class='panel panel-default'>
+	          <div class='panel-heading' id='legalAllocationHeading'>
+	            <h4 class='panel-title'>
+	                <a role='button' data-toggle='collapse' data-parent='#explanatoryAccordion' href='#legalAllocationCollapse' aria-expanded='true' aria-controls='legalAllocationCollapse'>
+										What is "Legal Allocation?"
+									</a>
+	            </h4>
+	          </div>
+						
+	          <div id='legalAllocationCollapse' class='panel-collapse collapse in' role='tabpanel' aria-labelledby='legalAllocationHeading'>
+							<div class='panel-body'>
+		            <p>
+		              Water distribution amongst the states in the Colorado Basin and Mexico is governed by a series of laws and treaties collectively referred to as the "<a href="https://www.usbr.gov/lc/region/g1000/lawofrvr.html">Law of the River</a>." The maximum distribution is based on an assumed average flow of <b>~16.5maf</b>, an amount now understood to be higher than the long-term average.
+		            </p>
+								<p>
+									The map displays the amount of water each state gets as a proportion of their <b>maximum legal allotment</b> using the color gradient described by the legend.
+								</p>
+								<p>
+									In <b>surplus years</b>, excess water is generally stored in Lake Powell and Lake Mead for future use by the Lower Basin states. Upper Basin states are not permitted to withhold water that they are not capable of using.
+								</p>
+							</div>
+	          </div>
+						
+	        </div>
+					
+					<div class='panel panel-default'>
+						<div class='panel-heading' id='consumptiveUseHeading'>
+							<h4 class='panel-title'>
+								<a role='button' data-toggle='collapse' data-parent='#explanatoryAccordion' href='#consumptiveUseCollapse' aria-expanded='false' aria-controls='consumptiveUseCollapse'>
+									What is "Recent Consumptive Use?"
+								</a>
+							</h4>
+						</div>
+						
+						<div id='consumptiveUseCollapse' class='panel-collapse collapse' role='tabpanel' aria-labelledby='consumptiveUseHeading'>
+							<div class='panel-body'>
+								<p>
+									The Bureau of Reclamation calculates consumptive use data for the Colorado Basin states -- meaning, <b>how much Colorado River water do they each use in a given year</b>. The data is calculated retroactively and availability is somewhat limited. For this map, we are using an <b>average of the annual consumptive use data for each state since 2001</b>. Data for the Lower Basin are from 2001-2010; for the Upper Basin, the Bureau has published data through 2015.
+								</p>
+								<p>
+									The map is showing each state's available water (defined by the annual flow slider and the <a href="https://www.usbr.gov/lc/region/g1000/lawofrvr.html">Law of the River</a>) as a percentage of its recent annual consumptive water use. In other words, if a state is not at 100%, it is facing a <b>shortage</b> of water to fulfill its typical use. 
+								</p>
+							</div>
+						</div>
+					</div>
+					
+				</div>
 
       </div>
 

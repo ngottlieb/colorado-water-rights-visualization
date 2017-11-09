@@ -107,6 +107,7 @@ Application =
     $('#mapVariableControl').on 'change', ->
       Application.mapVariable = $(this).val()
       Application.updateDisplay()
+      $('#' + Application.mapVariable + 'Collapse').collapse({toggle: true, parent: '#explanatoryAccordion'})
 
   map: null
 
