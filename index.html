@@ -49,14 +49,20 @@
             <div class='row top-margin'>
               <div class='col-sm-12'>
 								<p>
-									<span class='badge'>available water</span> as a percentage of <br /><br />
-			  					<span>
+									<span class='badge'>available water</span> as a percentage of
+			  					<span class='pull-right'>
 					   				<select name='mapVariable' id='mapVariableControl'>
 					          	<option value='legalAllocation' selected="true">Legal Allocation</option>
 					            <option value='consumptiveUse'>Recent Consumptive Use</option>
 					          </select>
 									</span>
 								</p>
+								<div id='explanatoryWell' class='well'>
+									<p id='legalAllocationBlurb'>The map is showing each state's <strong>available water</strong> as a percentage of its <strong>maximum legal allocation</strong>.</p>
+									<p id='consumptiveUseBlurb'>
+										The map is showing each state's <strong>available water</strong> as a percentage of its <strong>recent annual consumptive water use</strong>. In other words, if a state is not at 100%, it is facing a <strong>shortage</strong> of water to fulfill its typical use. 
+									</p>
+								</div>
               </div>
             </div>
           </div>
@@ -76,13 +82,10 @@
 	          <div id='legalAllocationCollapse' class='panel-collapse collapse in' role='tabpanel' aria-labelledby='legalAllocationHeading'>
 							<div class='panel-body'>
 		            <p>
-		              Water distribution amongst the states in the Colorado Basin and Mexico is governed by a series of laws and treaties collectively referred to as the "<a href="https://www.usbr.gov/lc/region/g1000/lawofrvr.html">Law of the River</a>." The maximum distribution is based on an assumed average flow of <b>~16.5maf</b>, an amount now understood to be higher than the long-term average.
+		              Water allocation amongst the states in the Colorado Basin and Mexico is governed by a series of laws and treaties collectively referred to as the "<a href="https://www.usbr.gov/lc/region/g1000/lawofrvr.html">Law of the River</a>." The maximum legal allocation was based on an assumed average flow of <strong>~16.5maf</strong>, an amount now understood to be higher than the long-term average.
 		            </p>
 								<p>
-									The map displays the amount of water each state gets as a proportion of their <b>maximum legal allotment</b> using the color gradient described by the legend.
-								</p>
-								<p>
-									In <b>surplus years</b>, excess water is generally stored in Lake Powell and Lake Mead for future use by the Lower Basin states. Upper Basin states are not permitted to withhold water that they are not capable of using.
+									In <strong>surplus years</strong>, excess water is generally stored in Lake Powell and Lake Mead for future use by the Lower Basin states. Upper Basin states are not permitted to withhold water that they are not capable of using.
 								</p>
 							</div>
 	          </div>
@@ -101,11 +104,9 @@
 						<div id='consumptiveUseCollapse' class='panel-collapse collapse' role='tabpanel' aria-labelledby='consumptiveUseHeading'>
 							<div class='panel-body'>
 								<p>
-									The Bureau of Reclamation calculates consumptive use data for the Colorado Basin states -- meaning, <b>how much Colorado River water do they each use in a given year</b>. The data is calculated retroactively and availability is somewhat limited. For this map, we are using an <b>average of the annual consumptive use data for each state since 2001</b>. Data for the Lower Basin are from 2001-2010; for the Upper Basin, the Bureau has published data through 2015.
+									The Bureau of Reclamation calculates consumptive use data for the Colorado Basin states -- meaning, <strong>how much Colorado River water do they each use in a given year</strong>. The data are calculated retroactively and availability is somewhat limited. For this map, we are using an <strong>average of the annual consumptive use data for each state since 2001</strong>. Data for the Lower Basin are from 2001-2010; for the Upper Basin, the Bureau has published data through 2015.
 								</p>
-								<p>
-									The map is showing each state's available water (defined by the annual flow slider and the <a href="https://www.usbr.gov/lc/region/g1000/lawofrvr.html">Law of the River</a>) as a percentage of its recent annual consumptive water use. In other words, if a state is not at 100%, it is facing a <b>shortage</b> of water to fulfill its typical use. 
-								</p>
+								<p><strong>Available water</strong> is defined by the annual flow slider and the heierarchy laid out by the<a href="https://www.usbr.gov/lc/region/g1000/lawofrvr.html">Law of the River</a>.</p>
 							</div>
 						</div>
 					</div>
