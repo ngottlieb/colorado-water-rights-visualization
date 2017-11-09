@@ -48,76 +48,94 @@
           <div class='panel-body'>
             <div class='row top-margin'>
               <div class='col-sm-12'>
-								<p>
-									<span class='badge'>available water</span> as a percentage of
-			  					<span class='pull-right'>
-					   				<select name='mapVariable' id='mapVariableControl'>
-					          	<option value='legalAllocation' selected="true">Legal Allocation</option>
-					            <option value='consumptiveUse'>Recent Consumptive Use</option>
-					          </select>
-									</span>
-								</p>
-								<div id='explanatoryWell' class='well'>
-									<p id='legalAllocationBlurb'>The map is showing each state's <strong>available water</strong> as a percentage of its <strong>maximum legal allocation</strong>.</p>
-									<p id='consumptiveUseBlurb'>
-										The map is showing each state's <strong>available water</strong> as a percentage of its <strong>recent annual consumptive water use</strong>. In other words, if a state is not at 100%, it is facing a <strong>shortage</strong> of water to fulfill its typical use. 
-									</p>
-								</div>
+                <p>
+                  <span class='badge' data-toggle='tooltip' title="Available water is calculated by distributing the annual flow at Lee's Ferry (controlled by the above slider) according to the 'Law of the River' (see below).">available water</span> as a percentage of
+                  <span class='pull-right'>
+                     <select name='mapVariable' id='mapVariableControl'>
+                      <option value='legalAllocation' selected="true">Legal Allocation</option>
+                      <option value='consumptiveUse'>Recent Consumptive Use</option>
+                    </select>
+                  </span>
+                </p>
+                <div id='explanatoryWell' class='well'>
+                  <span id='legalAllocationBlurb'>The map is showing each state's <strong>available water</strong> as a percentage of its <strong>maximum legal allocation</strong>.</span>
+                  <span id='consumptiveUseBlurb'>
+                    The map is showing each state's <strong>available water</strong> as a percentage of its <strong>recent annual consumptive water use</strong>. In other words, if a state is not at 100%, it is facing a <strong>shortage</strong> of water to fulfill its typical use. 
+                  </span>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-				<div class='panel-group' id='explanatoryAccordion' role='tablist' aria-multiselectable='false'>
-					
-	        <div class='panel panel-default'>
-	          <div class='panel-heading' id='legalAllocationHeading'>
-	            <h4 class='panel-title'>
-	                <a role='button' data-toggle='collapse' data-parent='#explanatoryAccordion' href='#legalAllocationCollapse' aria-expanded='true' aria-controls='legalAllocationCollapse'>
-										What is "Legal Allocation?"
-									</a>
-	            </h4>
-	          </div>
-						
-	          <div id='legalAllocationCollapse' class='panel-collapse collapse in' role='tabpanel' aria-labelledby='legalAllocationHeading'>
-							<div class='panel-body'>
-		            <p>
-		              Water allocation amongst the states in the Colorado Basin and Mexico is governed by a series of laws and treaties collectively referred to as the "<a href="https://www.usbr.gov/lc/region/g1000/lawofrvr.html">Law of the River</a>." The maximum legal allocation was based on an assumed average flow of <strong>~16.5maf</strong>, an amount now understood to be higher than the long-term average.
-		            </p>
-								<p>
-									In <strong>surplus years</strong>, excess water is generally stored in Lake Powell and Lake Mead for future use by the Lower Basin states. Upper Basin states are not permitted to withhold water that they are not capable of using.
-								</p>
-							</div>
-	          </div>
-						
-	        </div>
-					
-					<div class='panel panel-default'>
-						<div class='panel-heading' id='consumptiveUseHeading'>
-							<h4 class='panel-title'>
-								<a role='button' data-toggle='collapse' data-parent='#explanatoryAccordion' href='#consumptiveUseCollapse' aria-expanded='false' aria-controls='consumptiveUseCollapse'>
-									What is "Recent Consumptive Use?"
-								</a>
-							</h4>
-						</div>
-						
-						<div id='consumptiveUseCollapse' class='panel-collapse collapse' role='tabpanel' aria-labelledby='consumptiveUseHeading'>
-							<div class='panel-body'>
-								<p>
-									The Bureau of Reclamation calculates consumptive use data for the Colorado Basin states -- meaning, <strong>how much Colorado River water do they each use in a given year</strong>. The data are calculated retroactively and availability is somewhat limited. For this map, we are using an <strong>average of the annual consumptive use data for each state since 2001</strong>. Data for the Lower Basin are from 2001-2010; for the Upper Basin, the Bureau has published data through 2015.
-								</p>
-								<p><strong>Available water</strong> is defined by the annual flow slider and the heierarchy laid out by the<a href="https://www.usbr.gov/lc/region/g1000/lawofrvr.html">Law of the River</a>.</p>
-							</div>
-						</div>
-					</div>
-					
-				</div>
+        <div class='panel-group' id='explanatoryAccordion' role='tablist' aria-multiselectable='false'>
+          
+          <div class='panel panel-default'>
+            <div class='panel-heading' id='legalAllocationHeading'>
+              <h4 class='panel-title'>
+                  <a role='button' data-toggle='collapse' data-parent='#explanatoryAccordion' href='#legalAllocationCollapse' aria-expanded='true' aria-controls='legalAllocationCollapse'>
+                    What is "Legal Allocation?"
+                  </a>
+              </h4>
+            </div>
+            
+            <div id='legalAllocationCollapse' class='panel-collapse collapse in' role='tabpanel' aria-labelledby='legalAllocationHeading'>
+              <div class='panel-body'>
+                <p>
+                  Water allocation amongst the states in the Colorado Basin and Mexico is governed by a series of laws and treaties collectively referred to as the "<a href="https://www.usbr.gov/lc/region/g1000/lawofrvr.html">Law of the River</a>." The maximum legal allocation was based on an assumed average flow of <strong>~16.5maf</strong>, an amount now understood to be higher than the long-term average.
+                </p>
+                <p>
+                  In <strong>surplus years</strong>, excess water is generally stored in Lake Powell and Lake Mead for future use by the Lower Basin states. Upper Basin states are not permitted to withhold water that they are not capable of using.
+                </p>
+              </div>
+            </div>
+            
+          </div>
+          
+          <div class='panel panel-default'>
+            <div class='panel-heading' id='consumptiveUseHeading'>
+              <h4 class='panel-title'>
+                <a role='button' data-toggle='collapse' data-parent='#explanatoryAccordion' href='#consumptiveUseCollapse' aria-expanded='false' aria-controls='consumptiveUseCollapse'>
+                  What is "Recent Consumptive Use?"
+                </a>
+              </h4>
+            </div>
+            
+            <div id='consumptiveUseCollapse' class='panel-collapse collapse' role='tabpanel' aria-labelledby='consumptiveUseHeading'>
+              <div class='panel-body'>
+                <p>
+                  The Bureau of Reclamation calculates consumptive use data for the Colorado Basin states -- meaning, <strong>how much Colorado River water do they each use in a given year</strong>. The data are calculated retroactively and availability is somewhat limited. For this map, we are using an <strong>average of the annual consumptive use data for each state since 2001</strong>. Data for the Lower Basin are from 2001-2010; for the Upper Basin, the Bureau has published data through 2015.
+                </p>
+                <p><strong>Available water</strong> is defined by the annual flow slider and the heierarchy laid out by the<a href="https://www.usbr.gov/lc/region/g1000/lawofrvr.html">Law of the River</a>.</p>
+              </div>
+            </div>
+          </div>
+          
+        </div>
 
       </div>
 
       <div class='col-sm-8'>
         <div id="map">
         </div>
+      </div>
+    </div>
+    
+    <div class='row'>
+      <div class='jumbotron'>
+        <h2>References</h2>
+        <dl class='dl-horizontal'>
+          <dt>"Law of the River"</dt>
+          <dd><a href='http://scholar.law.colorado.edu/cgi/viewcontent.cgi?article=1053&context=books_reports_studies'>MacDonnell, Getches, and Hugenberg, Jr, 1995. The Law of the Colorado River: Coping with Severe Sustained Drought. Published by University of Colorado Boulder Natural Resources Law Center.</a>
+          </dd>
+          <dd><a href='https://www.usbr.gov/lc/region/g1000/lawofrvr.html'>March 2008. Law of the River. Published by the Bureau of Reclamation.</a>
+          </dd>
+          <dt>Consumptive Use</dt>
+          <dd><a href='https://www.usbr.gov/uc/library/envdocs/reports/crs/pdfs/cul2001-05.pdf'>Colorado River System Consumptive Uses and Losses Report 2001-2005. Published by the Bureau of Reclamation.</a></dd>
+          <dd><a href='https://bor.colorado.edu/public_web/DataTransfer/CUL/CRB/cul2006-10.pdf'>Upper Colorado River System Consumptive Uses and Losses Report 2006-2010. Published by the Bureau of Reclamation.</a></dd>
+          <dd><a href='https://www.usbr.gov/uc/library/envdocs/reports/crs/pdfs/CU&L2011-15draft_022517_v2.pdf'>Provisional Upper Colorado River Basin Consumptive Uses and Losses Report 2011-2015. Published by the Bureau of Reclamation.</a></dd>
+          <dd><a href='https://www.usbr.gov/lc/region/programs/crbstudy/finalreport/Technical%20Report%20C%20-%20Water%20Demand%20Assessment/TR-C_Appendix10_FINAL.pdf'>Colorado River Basin Water Supply and Demand Study Appendix C10. Published by the Bureau of Reclamation.</a></dd>
+        </dl>
       </div>
     </div>
   </div>
