@@ -11,6 +11,7 @@ Application =
     this.prepareMap()
     this.updateAnnualFlow()
     this.setUpControls()
+    $('[data-toggle="tooltip"]').tooltip()
 
   prepareMap: ->
     this.map = L.map('map').setView([32.8, -110], 3.5);
