@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ABBR<!DOCTYPE html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
@@ -58,7 +58,7 @@
                  as a percentage of:<br /><br />
                   <select name='mapVariable' id='mapVariableControl'>
                     <option value='legalAllocation' selected="true">Legal Allocation</option>
-                    <option value='consumptiveUse'>Recent Consumptive Use</option>
+                    <option value='consumptiveUse'>Consumptive Use</option>
                   </select>
                 </p>
                 <div id='explanatoryWell' class='well'>
@@ -71,7 +71,16 @@
             </div>
           </div>
         </div>
+      </div>
 
+      <div class='col-sm-8'>
+        <div id="map">
+        </div>
+      </div>
+    </div>
+    
+    <div class='row'>
+      <div class='col-sm-12'>
         <div class='panel-group' id='explanatoryAccordion' role='tablist' aria-multiselectable='false'>
           
           <div class='panel panel-default'>
@@ -100,7 +109,7 @@
             <div class='panel-heading' id='consumptiveUseHeading'>
               <h4 class='panel-title'>
                 <a role='button' data-toggle='collapse' data-parent='#explanatoryAccordion' href='#consumptiveUseCollapse' aria-expanded='false' aria-controls='consumptiveUseCollapse'>
-                  What is "Recent Consumptive Use?"
+                  What is "Consumptive Use?"
                 </a>
               </h4>
             </div>
@@ -110,19 +119,13 @@
                 <p>
                   The Bureau of Reclamation calculates consumptive use data for the Colorado Basin states -- meaning, <strong>how much Colorado River water do they each use in a given year</strong>. The data are calculated retroactively and availability is somewhat limited. For this map, we are using an <strong>average of the annual consumptive use data for each state since 2001</strong>. Data for the Lower Basin are from 2001-2010; for the Upper Basin, the Bureau has published data through 2015.
                 </p>
-                <p><strong>Available water</strong> is defined by the annual flow slider and the heierarchy laid out by the<a href="https://www.usbr.gov/lc/region/g1000/lawofrvr.html">Law of the River</a>.</p>
               </div>
             </div>
           </div>
           
         </div>
-
       </div>
 
-      <div class='col-sm-8'>
-        <div id="map">
-        </div>
-      </div>
     </div>
     
     <div class='row'>
