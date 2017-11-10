@@ -1,5 +1,5 @@
 WaterAllocation =
-  determineAllocation: (annualFlow, deliverToMexico) ->
+  determineAllocation: (annualFlow) ->
     allocations =
       mexico: 0
       california: 0
@@ -14,11 +14,8 @@ WaterAllocation =
     remainingFlow = annualFlow
 
     # delivery to Mexico can be somewhat discretionary, but in theory has highest priority
-    if deliverToMexico
-      allocations.mexico = this.allocate(1.5, remainingFlow)
-      remainingFlow = remainingFlow - allocations.mexico
-    else
-      allocations.mexico = 0
+    allocations.mexico = this.allocate(1.5, remainingFlow)
+    remainingFlow = remainingFlow - allocations.mexico
 
     # Lower Basin has effective priority
     allocations.california = this.allocate(4.4, remainingFlow)

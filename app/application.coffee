@@ -68,7 +68,9 @@ Application =
   mapFeatures: null
   mapInfo: null
   mapSurplusDisplay: null
-
+  map: null
+  waterAllocation: {}
+  annualFlow: 15
   totalAvgConsumptiveUse: 0
   totalLegalAllotment: 0
 
@@ -117,13 +119,6 @@ Application =
     $("##{currentlyIn}Collapse").collapse('show')
     $("##{currentlyOut}Collapse").collapse('hide')
 
-  map: null
-
-  waterAllocation: {}
-
-  annualFlow: 15
-  deliverToMexico: true
-
   updateDisplay: ->
     Application.mapFeatures.setStyle(Application.mapUnitStyle)
     Application.mapSurplusDisplay.update()
@@ -132,7 +127,7 @@ Application =
   updateAnnualFlow: ->
     currFlow = parseFloat($('#annual_flow').val())
     Application.annualFlow = currFlow
-    Application.waterAllocation = WaterAllocation.determineAllocation(currFlow, Application.deliverToMexico)
+    Application.waterAllocation = WaterAllocation.determineAllocation(currFlow)
     Application.updateDisplay()
 
   # color is a divergent gradient from red to white to blue
@@ -204,7 +199,6 @@ Application =
       return sum/n
     else
       return 'na'
-
 
   camelcaseName: (name) ->
     return name
