@@ -65,6 +65,7 @@ Application =
       this._div.innerHTML = contents
     this.mapSurplusDisplay.addTo(this.map)
 
+  allocationParadigm: 'modern'
   mapFeatures: null
   mapInfo: null
   mapSurplusDisplay: null
@@ -138,16 +139,13 @@ Application =
   # color is a divergent gradient from red to white to blue
   getColor: (proportion)->
     if proportion == 'na'
-      return '#fec44f'
-    else if proportion <= 0.5
-      red = parseInt(178 + proportion * 150)
-      green = parseInt(24 + proportion * 446)
-      blue = parseInt(43 + proportion*408)
+      return '#bdbdbd'
+    else if parseFloat(proportion.toFixed(2)) == 1
+      return '#3182bd'
     else
-      num = proportion - 0.5
-      red = parseInt(247 - 428*num)
-      green = parseInt(247 - 290*num)
-      blue = parseInt(247 - 150*num)
+      red = parseInt(227 + proportion*28)
+      green = parseInt(26 + proportion*211)
+      blue = parseInt(28 + proportion * 132)
     return 'rgb(' + red + ',' + green + ',' + blue + ')'
 
   mapUnitStyle: (feature)->
