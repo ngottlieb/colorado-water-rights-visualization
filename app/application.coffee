@@ -110,6 +110,11 @@ Application =
     $('#mapVariableControl').on 'change', ->
       Application.mapVariable = $(this).val()
       Application.updateDisplay()
+    
+    $('#allocationParadigmControl').on 'change', ->
+      Application.allocationParadigm = $(this).val()
+      # this triggers a change in water distribution, so we need to recalculate that
+      Application.updateAnnualFlow()
 
   updateExplanations: ->
     currentlyIn = Application.mapVariable
@@ -127,7 +132,7 @@ Application =
   updateAnnualFlow: ->
     currFlow = parseFloat($('#annual_flow').val())
     Application.annualFlow = currFlow
-    Application.waterAllocation = WaterAllocation.determineAllocation(currFlow)
+    Application.waterAllocation = WaterAllocation.determineAllocation(currFlow, Application.allocationParadigm)
     Application.updateDisplay()
 
   # color is a divergent gradient from red to white to blue
