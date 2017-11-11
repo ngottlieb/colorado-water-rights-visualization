@@ -190,12 +190,12 @@ Application =
         else
           return proportion
 
-  # averages all available consumptive use datapoints since 2001
+  # averages all available consumptive use datapoints since 2003 when california moved to 4.4
   averageRecentConsumptiveUse: (state) ->
     sum = 0
     n = 0
     for year, value of WaterData.historicalConsumptiveUse[state]
-      if parseInt(year) >= 2001
+      if parseInt(year) >= 2003
         sum += value
         n += 1
     if n > 0
