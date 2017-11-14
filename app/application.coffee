@@ -14,7 +14,7 @@ Application =
     $('[data-toggle="tooltip"]').tooltip()
 
   prepareMap: ->
-    this.map = L.map('map').setView([32.8, -110], 3.5);
+    this.map = L.map('map').setView([35.8, -110], 5);
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + mapboxAccessToken,
       id: 'mapbox.light'
     ).addTo(this.map)
