@@ -15,4 +15,3 @@ This could be used by academics, the public, or government employees new to the 
 This project could easily be extended to be far more detailed, with more adjustable parameters and visual representations of reservoir levels and other major factors that impact water distribution. The map structure is based on GeoJSON and is easily extensible, and the business logic behind the scenes could be extended to incorporate the elements of storage that are not currently included. Other possible enhancements include incorporating climate predictions into the visualization or adding a navigable year-by-year historical analysis of flows, storage, and distribution.
 
 With some of these enhancements, I think this tool could be extremely valuable for water managers, helping them understand the implications of system-wide management strategies like the Interim Shortage Guidelines under varying conditions.
-
