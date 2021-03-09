@@ -1,6 +1,6 @@
 WaterAllocation = require('water_allocation')
 L = require('leaflet')
-mapboxAccessToken = 'pk.eyJ1IjoibmdvdHRsaWViIiwiYSI6ImNqOW9uNGRzYTVmNjgzM21xemt0ZHVxZHoifQ.A6Mc9XJp5q23xmPpqbTAcQ'
+mapboxAccessToken = 'pk.eyJ1IjoibmdvdHRsaWViIiwiYSI6ImNrbTIyYnA1cTBvZ3Aydm05b3U1MGloNGwifQ.nXicuHaeoBoUtnBiEV2ZhQ'
 usStates = require('us-states')
 mexico = require('mexico')
 WaterData = require('water_data')
@@ -15,9 +15,7 @@ Application =
 
   prepareMap: ->
     this.map = L.map('map').setView([35.8, -110], 5);
-    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + mapboxAccessToken,
-      id: 'mapbox.light'
-    ).addTo(this.map)
+    L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=' + mapboxAccessToken).addTo(this.map)
     this.mapFeatures = L.geoJson(usStates.stateData,
       style: this.mapUnitStyle
       onEachFeature: this.onEachMapFeature
