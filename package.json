@@ -10,7 +10,7 @@
     "build": "brunch build --production"
   },
   "dependencies": {
-    "bootstrap": "^3.3.7",
+    "bootstrap": "^3.4.1",
     "bootstrap-slider": "^9.9.0",
     "jquery": "^3.2.1",
     "leaflet": "^1.2.0",
